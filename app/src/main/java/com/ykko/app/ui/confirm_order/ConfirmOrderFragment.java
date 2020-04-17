@@ -75,8 +75,6 @@ public class ConfirmOrderFragment extends Fragment {
         TextView confirmFoodTwo= root.findViewById(R.id.confirm_food2);
         TextView confirmDes = root.findViewById(R.id.confirm_des);
 
-
-
         newOrder = getArguments().getParcelable("newOrderKey");
         confirmName.setText(newOrder.name);
         confirmPhNo.setText(newOrder.phNo);
