@@ -21,6 +21,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.ykko.app.R;
+import com.ykko.app.data.model.Feedback;
 import com.ykko.app.data.model.Order;
 import com.ykko.app.data.model.PopularPost;
 import com.ykko.app.ui.home.HomePopularPostsAdapter;
@@ -32,24 +33,36 @@ public class AdminHomeFragment extends Fragment {
 
     private AdminHomeViewModel mViewModel;
     private List<Order> orderPosts = new ArrayList<>();
+    private List<Feedback> reviewPosts = new ArrayList<>();
     private List<String> keys = new ArrayList<>();
 
     private RecyclerView orderPostsView;
     private RecyclerView.Adapter orderPostsViewAdapter;
     private RecyclerView.LayoutManager orderPostsViewLayoutManager;
 
+    private RecyclerView reviewPostsView;
+    private RecyclerView.Adapter reviewPostsViewAdapter;
+    private RecyclerView.LayoutManager reviewPostsViewLayoutManager;
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         mViewModel =
                 ViewModelProviders.of(this).get(AdminHomeViewModel.class);
         View root = inflater.inflate(R.layout.fragment_admin_home, container, false);
+
         orderPostsView = root.findViewById(R.id.order_posts_view);
         orderPostsView.setHasFixedSize(true);
         orderPostsViewLayoutManager = new LinearLayoutManager(getActivity());
         orderPostsView.setLayoutManager(orderPostsViewLayoutManager);
 
+        reviewPostsView = root.findViewById(R.id.admin_review_posts_view);
+        reviewPostsView.setHasFixedSize(true);
+        reviewPostsViewLayoutManager = new LinearLayoutManager(getActivity());
+        reviewPostsView.setLayoutManager(reviewPostsViewLayoutManager);
+
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference orderPostsRef = database.getReference("orderPosts").child("posts");
+        DatabaseReference reviewPostsRef = database.getReference("feedbackPosts").child("posts");
 
         ValueEventListener orderPostListener = new ValueEventListener() {
             @Override
@@ -72,7 +85,29 @@ public class AdminHomeFragment extends Fragment {
             }
         };
 
+        ValueEventListener reviewPostListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // Get Post object and use the values to update the UI
+                keys.clear();
+                for(DataSnapshot keyNode : dataSnapshot.getChildren()){
+                    keys.add(keyNode.getKey());
+                    Feedback post = keyNode.getValue(Feedback.class);
+                    reviewPosts.add(post);
+                }
+
+                reviewPostsViewAdapter = new AdminReviewAdapter(reviewPosts);
+                reviewPostsView.setAdapter(reviewPostsViewAdapter);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.w("", "loadPost:onCancelled", databaseError.toException());
+            }
+        };
+
         orderPostsRef.addValueEventListener(orderPostListener);
+        reviewPostsRef.addValueEventListener(reviewPostListener);
         return root;
     }
 

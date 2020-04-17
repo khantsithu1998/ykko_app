@@ -65,7 +65,7 @@ public class AdminReviewAdapter extends RecyclerView.Adapter<AdminReviewAdapter.
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, final int position) {
         TextView reviewerNameTextView = holder.reviewerNameTextView;
-        TextView commentTextView = holder.reviewerNameTextView;
+        TextView commentTextView = holder.commentTextView;
         RatingBar ratingBar = holder.ratingBar;
 
         reviewerNameTextView.setText(posts.get(position).reviewerName);
