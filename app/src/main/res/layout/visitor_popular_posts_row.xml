@@ -38,8 +38,9 @@
 
            <RatingBar
                android:id="@+id/ratingBar"
+               style="@android:style/Widget.Material.RatingBar.Indicator"
                android:layout_width="wrap_content"
-               android:layout_height="50dp"/>
+               android:layout_height="wrap_content"/>
            <TextView
                android:id="@+id/popular_food_price"
                android:layout_width="wrap_content"
