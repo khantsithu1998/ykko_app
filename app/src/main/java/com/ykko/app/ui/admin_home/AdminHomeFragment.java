@@ -22,6 +22,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.ykko.app.R;
 import com.ykko.app.data.model.Feedback;
+import com.ykko.app.data.model.Menu;
 import com.ykko.app.data.model.Order;
 import com.ykko.app.data.model.PopularPost;
 import com.ykko.app.ui.home.HomePopularPostsAdapter;
@@ -33,12 +34,17 @@ public class AdminHomeFragment extends Fragment {
 
     private AdminHomeViewModel mViewModel;
     private List<Order> orderPosts = new ArrayList<>();
+    private List<Menu> menuPosts = new ArrayList<>();
     private List<Feedback> reviewPosts = new ArrayList<>();
     private List<String> keys = new ArrayList<>();
 
     private RecyclerView orderPostsView;
     private RecyclerView.Adapter orderPostsViewAdapter;
     private RecyclerView.LayoutManager orderPostsViewLayoutManager;
+
+    private RecyclerView foodMenuPostsView;
+    private RecyclerView.Adapter foodMenuPostsViewAdapter;
+    private RecyclerView.LayoutManager foodMenuPostsViewLayoutManager;
 
     private RecyclerView reviewPostsView;
     private RecyclerView.Adapter reviewPostsViewAdapter;
@@ -60,9 +66,15 @@ public class AdminHomeFragment extends Fragment {
         reviewPostsViewLayoutManager = new LinearLayoutManager(getActivity());
         reviewPostsView.setLayoutManager(reviewPostsViewLayoutManager);
 
+        foodMenuPostsView = root.findViewById(R.id.admin_foodmenu_posts_view);
+        foodMenuPostsView.setHasFixedSize(true);
+        foodMenuPostsViewLayoutManager = new LinearLayoutManager(getActivity());
+        foodMenuPostsView.setLayoutManager(foodMenuPostsViewLayoutManager);
+
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference orderPostsRef = database.getReference("orderPosts").child("posts");
         DatabaseReference reviewPostsRef = database.getReference("feedbackPosts").child("posts");
+        DatabaseReference foodMenuPostsRef = database.getReference("menuPosts").child("posts");
 
         ValueEventListener orderPostListener = new ValueEventListener() {
             @Override
@@ -106,7 +118,29 @@ public class AdminHomeFragment extends Fragment {
             }
         };
 
+        ValueEventListener menuPostListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // Get Post object and use the values to update the UI
+                keys.clear();
+                for(DataSnapshot keyNode : dataSnapshot.getChildren()){
+                    keys.add(keyNode.getKey());
+                    Menu post = keyNode.getValue(Menu.class);
+                    menuPosts.add(post);
+                }
+
+                foodMenuPostsViewAdapter = new AdminMenuAdapter(menuPosts);
+                foodMenuPostsView.setAdapter(foodMenuPostsViewAdapter);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.w("", "loadPost:onCancelled", databaseError.toException());
+            }
+        };
+
         orderPostsRef.addValueEventListener(orderPostListener);
+        foodMenuPostsRef.addValueEventListener(menuPostListener);
         reviewPostsRef.addValueEventListener(reviewPostListener);
         return root;
     }
