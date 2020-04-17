@@ -47,13 +47,15 @@ public class BranchesFragment extends Fragment {
     private OnMapReadyCallback callback = new OnMapReadyCallback() {
         @Override
         public void onMapReady(GoogleMap googleMap) {
-            LatLng sydney = new LatLng(-34, 151);
             LatLng ykko = new LatLng(16.8774834,96.1003678);
+            LatLng ykko2 = new LatLng(16.8510287,96.1479804);
+
             googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
             googleMap.addMarker(new MarkerOptions().position(ykko).title("YKKO"));
-            googleMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-            //googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+            googleMap.addMarker(new MarkerOptions().position(ykko2).title("YKKO 2"));
+
             googleMap.moveCamera(CameraUpdateFactory.newLatLng(ykko));
+            googleMap.moveCamera(CameraUpdateFactory.newLatLng(ykko2));
         }
     };
 
