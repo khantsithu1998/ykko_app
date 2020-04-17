@@ -5,8 +5,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:paddingTop="10dp"
-    android:paddingBottom="10dp"
-    >
+    android:paddingBottom="10dp">
 
     <ImageView
         android:layout_width="wrap_content"
@@ -38,7 +37,7 @@
 
            <RatingBar
                android:id="@+id/ratingBar"
-               style="@android:style/Widget.Material.RatingBar.Indicator"
+               style="@android:style/Widget.Material.RatingBar.Small"
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"/>
            <TextView
