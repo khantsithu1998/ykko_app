@@ -53,6 +53,13 @@ public class AdminReservationAdapter extends RecyclerView.Adapter<AdminReservati
             confirmFoodTwoTextView = itemView.findViewById(R.id.admin_confirm_food2);
             confirmDesTextView = itemView.findViewById(R.id.admin_confirm_des);
             confirmBtn = itemView.findViewById(R.id.admin_confirm_table_btn);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Navigation.findNavController(v).navigate(R.id.nav_admin_reservation);
+                }
+            });
+
         }
     }
 
