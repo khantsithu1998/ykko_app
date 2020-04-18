@@ -8,6 +8,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ykko.app.R;
@@ -32,6 +33,12 @@ public class AdminMenuAdapter extends RecyclerView.Adapter<AdminMenuAdapter.MyVi
             foodStickNameTextView = itemView.findViewById(R.id.admin_food_stick_name);
             foodStickTypeTextView = itemView.findViewById(R.id.admin_food_stick_type);
             priceTextView = itemView.findViewById(R.id.admin_food_stick_price);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Navigation.findNavController(v).navigate(R.id.nav_admin_food_menu);
+                }
+            });
         }
     }
 
@@ -51,12 +58,8 @@ public class AdminMenuAdapter extends RecyclerView.Adapter<AdminMenuAdapter.MyVi
 
         AdminMenuAdapter.MyViewHolder viewHolder  = new AdminMenuAdapter.MyViewHolder(menuPostView);
 
-//        viewHolder.reserveBtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Navigation.findNavController(v).navigate(R.id.nav_table_reservation);
-//            }
-//        });
+
+
         return viewHolder;
     }
 

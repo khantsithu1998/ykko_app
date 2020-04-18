@@ -30,13 +30,29 @@ public class AdminReservationAdapter extends RecyclerView.Adapter<AdminReservati
     // you provide access to all the views for a data item in a view holder
     public static class MyViewHolder extends RecyclerView.ViewHolder {
         // each data item is just a string in this case
+        public TextView confirmNameTextView;
+        public TextView confirmPhNoTextView;
         public TextView confirmTownshipTextView;
+        public TextView confirmBranchTextView;
+        public TextView confirmDateTextView;
+        public TextView confirmNoOfPersonsTextView;
+        public TextView confirmFoodOneTextView;
+        public TextView confirmFoodTwoTextView;
+        public TextView confirmDesTextView;
         public Button confirmBtn;
 
         public MyViewHolder(View itemView) {
             super(itemView);
+            confirmNameTextView = itemView.findViewById(R.id.admin_confirm_name);
+            confirmPhNoTextView = itemView.findViewById(R.id.admin_confirm_phNo);
             confirmTownshipTextView = itemView.findViewById(R.id.admin_confirm_township);
-            confirmBtn = itemView.findViewById(R.id.confirm_table_btn);
+            confirmBranchTextView = itemView.findViewById(R.id.admin_confirm_branch);
+            confirmDateTextView = itemView.findViewById(R.id.admin_confirm_date);
+            confirmNoOfPersonsTextView = itemView.findViewById(R.id.admin_confirm_noOfPerson);
+            confirmFoodOneTextView = itemView.findViewById(R.id.admin_confirm_food1);
+            confirmFoodTwoTextView = itemView.findViewById(R.id.admin_confirm_food2);
+            confirmDesTextView = itemView.findViewById(R.id.admin_confirm_des);
+            confirmBtn = itemView.findViewById(R.id.admin_confirm_table_btn);
         }
     }
 
@@ -56,29 +72,32 @@ public class AdminReservationAdapter extends RecyclerView.Adapter<AdminReservati
 
         AdminReservationAdapter.MyViewHolder viewHolder  = new AdminReservationAdapter.MyViewHolder(orderPostView);
 
-//        viewHolder.reserveBtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Navigation.findNavController(v).navigate(R.id.nav_table_reservation);
-//            }
-//        });
         return viewHolder;
     }
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, final int position) {
-        TextView priceTextView = holder.confirmTownshipTextView;
+        TextView confirmNameTextView = holder.confirmNameTextView;
+        TextView confirmPhNoTextView = holder.confirmPhNoTextView;
+        TextView confirmTownshipTextView = holder.confirmTownshipTextView;
+        TextView confirmBranchTextView = holder.confirmBranchTextView;
+        TextView confirmDateTextView = holder.confirmDateTextView;
+        TextView confirmNoOfPersonsTextView = holder.confirmNoOfPersonsTextView;
+        TextView confirmFoodOneTextView = holder.confirmFoodOneTextView;
+        TextView confirmFoodTwoTextView = holder.confirmFoodTwoTextView;
+        TextView confirmDesTextView = holder.confirmDesTextView;
         Button confirmBtn = holder.confirmBtn;
 
-        priceTextView.setText(posts.get(position).township);
-        confirmBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FirebaseDatabase database = FirebaseDatabase.getInstance();
-                DatabaseReference orderPostsRef = database.getReference("orderPosts").child("posts");
-                orderPostsRef.child(String.valueOf(position)).removeValue();
-            }
-        });
+        confirmNameTextView.setText(posts.get(position).name);
+        confirmPhNoTextView.setText(posts.get(position).phNo);
+        confirmTownshipTextView.setText(posts.get(position).township);
+        confirmBranchTextView.setText(posts.get(position).branch);
+        confirmDateTextView.setText(posts.get(position).date);
+        confirmNoOfPersonsTextView.setText(String.valueOf(posts.get(position).numberOfPersons));
+        confirmFoodOneTextView.setText(posts.get(position).food1);
+        confirmFoodTwoTextView.setText(posts.get(position).food2);
+        confirmDesTextView.setText(posts.get(position).description);
+
     }
 
     @Override

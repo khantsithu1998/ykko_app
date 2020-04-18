@@ -30,7 +30,8 @@ public class AdminHomeActivity extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_admin_home)
+                R.id.nav_admin_home,R.id.nav_admin_reservation,
+                R.id.nav_admin_food_menu,R.id.nav_admin_review)
                 .setDrawerLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_admin_host_fragment);
@@ -47,23 +48,20 @@ public class AdminHomeActivity extends AppCompatActivity {
     }
 
     public void toMenu(int index){
-//        switch (index){
-//            case 0:
-//                Navigation.findNavController(this,R.id.nav_host_fragment).navigate(R.id.nav_home);
-//                break;
-//            case 1:
-//                Navigation.findNavController(this,R.id.nav_host_fragment).navigate(R.id.nav_reservation);
-//                break;
-//            case 2:
-//                Navigation.findNavController(this,R.id.nav_host_fragment).navigate(R.id.nav_branches);
-//                break;
-//            case 3:
-//                Navigation.findNavController(this,R.id.nav_host_fragment).navigate(R.id.nav_food_menu);
-//                break;
-//            case 4:
-//                Navigation.findNavController(this,R.id.nav_host_fragment).navigate(R.id.nav_feedback);
-//                break;
-//        }
+        switch (index){
+            case 0:
+                Navigation.findNavController(this,R.id.nav_admin_host_fragment).navigate(R.id.nav_admin_home);
+                break;
+            case 1:
+                Navigation.findNavController(this,R.id.nav_admin_host_fragment).navigate(R.id.nav_admin_reservation);
+                break;
+            case 2:
+                Navigation.findNavController(this,R.id.nav_admin_host_fragment).navigate(R.id.nav_admin_food_menu);
+                break;
+            case 3:
+                Navigation.findNavController(this,R.id.nav_admin_host_fragment).navigate(R.id.nav_admin_review);
+                break;
+        }
     }
 
     @Override

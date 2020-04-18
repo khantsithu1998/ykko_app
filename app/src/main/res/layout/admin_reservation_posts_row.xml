@@ -35,7 +35,6 @@
                        android:layout_height="wrap_content"/>
                    <TextView
                        android:id="@+id/admin_confirm_name"
-                       android:text="Kay Khine"
                        android:textColor="@android:color/black"
                        android:textSize="17dp"
                        android:fontFamily="@font/arial_bold"
@@ -57,7 +56,6 @@
                        android:layout_height="wrap_content"/>
                    <TextView
                        android:id="@+id/admin_confirm_phNo"
-                       android:text="09979801944"
                        android:textColor="@android:color/black"
                        android:textSize="17dp"
                        android:fontFamily="@font/arial_bold"
@@ -79,14 +77,14 @@
                     android:fontFamily="@font/montserrat_regular"
                     android:text="Township:"
                     android:textSize="13dp"
-                    android:textAlignment="viewEnd"/>
+                    android:textAlignment="textEnd"/>
                 <TextView
                     android:id="@+id/admin_confirm_township"
                     android:layout_marginLeft="@dimen/confirm_text_margin"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/montserrat_regular"
-                    android:textColor="@color/themeColor"
+                    android:textColor="@android:color/black"
                     android:textSize="13dp" />
 
             </LinearLayout>
@@ -111,7 +109,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/montserrat_regular"
-                    android:textColor="@color/themeColor"
+                    android:textColor="@android:color/black"
                     android:textSize="13dp" />
 
             </LinearLayout>
@@ -131,7 +129,7 @@
                     android:textSize="13dp"
                     android:textAlignment="textEnd"/>
                 <TextView
-                    android:id="@+id/admmin_confirm_date"
+                    android:id="@+id/admin_confirm_date"
                     android:layout_marginLeft="@dimen/confirm_text_margin"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -156,7 +154,7 @@
                     android:textAlignment="textEnd"
                     android:textSize="13dp"/>
                 <TextView
-                    android:id="@+id/confirm_noOfPerson"
+                    android:id="@+id/admin_confirm_noOfPerson"
                     android:layout_marginLeft="@dimen/confirm_text_margin"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -181,7 +179,7 @@
                     android:textAlignment="textEnd"
                     android:textSize="13dp" />
                 <TextView
-                    android:id="@+id/confirm_food1"
+                    android:id="@+id/admin_confirm_food1"
                     android:layout_marginLeft="@dimen/confirm_text_margin"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -206,7 +204,7 @@
                     android:textAlignment="textEnd"
                     android:textSize="13dp" />
                 <TextView
-                    android:id="@+id/confirm_food2"
+                    android:id="@+id/admin_confirm_food2"
                     android:layout_marginLeft="@dimen/confirm_text_margin"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -231,7 +229,7 @@
                     android:textAlignment="textEnd"
                     android:textSize="13dp" />
                 <TextView
-                    android:id="@+id/confirm_des"
+                    android:id="@+id/admin_confirm_des"
                     android:layout_marginLeft="@dimen/confirm_text_margin"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -253,7 +251,7 @@
                     android:text="CANCEL" />
 
                 <Button
-                    android:id="@+id/confirm_table_btn"
+                    android:id="@+id/admin_confirm_table_btn"
                     style="@style/ykkoButton"
                     android:layout_width="120dp"
                     android:layout_height="wrap_content"

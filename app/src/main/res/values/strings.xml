@@ -18,6 +18,13 @@
         <item>@drawable/ic_restaurant_white_24dp</item>
         <item>@drawable/ic_tag_faces_white_24dp</item>
     </array>
+
+    <array name="admin_icons">
+        <item>@drawable/ic_home_white_24dp</item>
+        <item>@drawable/ic_room_service_white_24dp</item>
+        <item>@drawable/ic_restaurant_white_24dp</item>
+        <item>@drawable/ic_tag_faces_white_24dp</item>
+    </array>
     <array name="colors">
         <item>@android:color/holo_green_dark</item>
         <item>@android:color/holo_green_dark</item>
