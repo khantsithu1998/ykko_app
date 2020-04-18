@@ -8,6 +8,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ykko.app.R;
@@ -31,6 +32,13 @@ public class AdminReviewAdapter extends RecyclerView.Adapter<AdminReviewAdapter.
             reviewerNameTextView = itemView.findViewById(R.id.admin_reviewer_name);
             commentTextView = itemView.findViewById(R.id.admin_reviewer_comment);
             ratingBar = itemView.findViewById(R.id.admin_reviewer_rating);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Navigation.findNavController(v).navigate(R.id.nav_admin_review);
+                }
+            });
         }
     }
 
@@ -50,12 +58,6 @@ public class AdminReviewAdapter extends RecyclerView.Adapter<AdminReviewAdapter.
 
         AdminReviewAdapter.MyViewHolder viewHolder  = new AdminReviewAdapter.MyViewHolder(reviewPostView);
 
-//        viewHolder.reserveBtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Navigation.findNavController(v).navigate(R.id.nav_table_reservation);
-//            }
-//        });
         return viewHolder;
     }
 

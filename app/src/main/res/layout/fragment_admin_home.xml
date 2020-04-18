@@ -58,11 +58,12 @@
             android:layout_height="wrap_content"
             android:text="Customers' Review "
             android:textSize="17dp"
-            android:fontFamily="@font/arial_bold"
+            android:fontFamily="@font/raleway_semibold"
             android:textColor="@android:color/black"/>
 
         <androidx.cardview.widget.CardView
             app:cardCornerRadius="@dimen/dp_10"
+            android:elevation="@dimen/dp_10"
             android:outlineAmbientShadowColor="@color/themeColor"
             android:layout_width="match_parent"
             android:layout_height="300dp"
