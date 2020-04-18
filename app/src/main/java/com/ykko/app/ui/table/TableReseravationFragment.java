@@ -70,6 +70,7 @@ public class TableReseravationFragment extends Fragment {
         final TextInputEditText nameEditText = root.findViewById(R.id.reserve_name);
         final TextInputEditText phNoEditText = root.findViewById(R.id.reserve_phNo);
         final TextInputEditText numerOfPersonsEditText = root.findViewById(R.id.noOfPersons);
+        final TextInputEditText foodDesEditText = root.findViewById(R.id.food_des);
         foodOneSpinner = root.findViewById(R.id.food1_spinner);
         foodOneSpinner.setItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -200,10 +201,10 @@ public class TableReseravationFragment extends Fragment {
                 newOrder.date = "20/Mar/2020 - 12:00 PM";
                 newOrder.branch = branch;
                 newOrder.township = township;
-                newOrder.numberOfPersons = 2;
+                newOrder.numberOfPersons = Integer.valueOf(numerOfPersonsEditText.getText().toString());
                 newOrder.food1 = foodOne;
                 newOrder.food2 = foodTwo;
-                newOrder.description = "a cho mote shaung";
+                newOrder.description = foodDesEditText.getText().toString();
                 Bundle bundle = new Bundle();
                 bundle.putParcelable("newOrderKey", newOrder);
                 Navigation.findNavController(v).navigate(R.id.nav_confirm_order,bundle);

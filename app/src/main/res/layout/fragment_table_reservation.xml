@@ -106,10 +106,19 @@
             android:requiresFadingEdge="none"
             android:textSize="5dp"
             android:fontFamily="@font/raleway_semibold"/>
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/food_des"
+            style="@style/customEditTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="640dp"
+            android:hint="Enter Description"
+            android:outlineProvider="none" />
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="640dp"
+            android:layout_marginTop="700dp"
             android:orientation="horizontal">
 
             <Button
