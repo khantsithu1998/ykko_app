@@ -54,6 +54,9 @@ public class AddMenuFragment extends Fragment {
     private StorageTask mUploadTask;
     private String downloadUrl = "";
     private TextInputEditText foodNameEditText;
+    private TextInputEditText foodTypeEditText;
+    private TextInputEditText foodPriceEditText;
+    private TextInputEditText foodAvailableEditText;
     private FoodMenu newMenu = new FoodMenu();
 
     @Override
@@ -65,11 +68,10 @@ public class AddMenuFragment extends Fragment {
         mDatabaseRef = FirebaseDatabase.getInstance().getReference("menuPosts").child("posts");
 
         foodNameEditText = root.findViewById(R.id.add_food_menu_name);
-        final TextInputEditText foodTypeEditText = root.findViewById(R.id.add_food_menu_type);
-        final TextInputEditText foodPriceEditText = root.findViewById(R.id.add_food_menu_price);
-        final TextInputEditText foodAvailableEditText = root.findViewById(R.id.add_food_menu_available);
-        final ImageButton chooseBtn = root.findViewById(R.id.choose_photo_button);
-        final Button uploadButton = root.findViewById(R.id.upload_photo_button);
+        foodTypeEditText = root.findViewById(R.id.add_food_menu_type);
+        foodPriceEditText = root.findViewById(R.id.add_food_menu_price);
+        foodAvailableEditText = root.findViewById(R.id.add_food_menu_available);
+        final Button chooseBtn = root.findViewById(R.id.choose_photo_button);
 
         Button saveBtn = root.findViewById(R.id.save_menu_button);
 
@@ -80,7 +82,8 @@ public class AddMenuFragment extends Fragment {
             }
         });
 
-        uploadButton.setOnClickListener(new View.OnClickListener() {
+
+        saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (mUploadTask != null && mUploadTask.isInProgress()) {
@@ -88,35 +91,6 @@ public class AddMenuFragment extends Fragment {
                 } else {
                     uploadFile();
                 }
-            }
-        });
-
-        saveBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String name = foodNameEditText.getText().toString();
-                String type = foodTypeEditText.getText().toString();
-                String price = foodPriceEditText.getText().toString();
-                String branch = foodAvailableEditText.getText().toString();
-                newMenu = new FoodMenu(name,type,price,branch,downloadUrl);
-
-                FirebaseDatabaseHelper databaseHelper = new FirebaseDatabaseHelper();
-                databaseHelper.addData("menuPosts", newMenu, new FirebaseDatabaseHelper.DataStatus() {
-                    @Override
-                    public void DataIsInserted() {
-                        Toast.makeText(getActivity(),"Save Menu Successful",Toast.LENGTH_SHORT).show();
-                    }
-
-                    @Override
-                    public void DataIsUpdated() {
-
-                    }
-
-                    @Override
-                    public void DataIsDeleted() {
-
-                    }
-                });
             }
         });
 
@@ -168,7 +142,7 @@ public class AddMenuFragment extends Fragment {
                                 }
                             }, 500);
 
-                            Toast.makeText(getActivity(), "Upload successful", Toast.LENGTH_LONG).show();
+                            //Toast.makeText(getActivity(), "Upload successful", Toast.LENGTH_LONG).show();
 
                         }
                     }).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
@@ -178,6 +152,7 @@ public class AddMenuFragment extends Fragment {
                                 @Override
                                 public void onSuccess(Uri uri) {
                                     downloadUrl = uri.toString();
+                                    saveMenu();
                                 }
                             });
                         }
@@ -198,6 +173,32 @@ public class AddMenuFragment extends Fragment {
         } else {
             Toast.makeText(getActivity(), "No file selected", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private void saveMenu(){
+        String name = foodNameEditText.getText().toString();
+        String type = foodTypeEditText.getText().toString();
+        String price = foodPriceEditText.getText().toString();
+        String branch = foodAvailableEditText.getText().toString();
+        newMenu = new FoodMenu(name,type,price,branch,downloadUrl);
+
+        FirebaseDatabaseHelper databaseHelper = new FirebaseDatabaseHelper();
+        databaseHelper.addData("menuPosts", newMenu, new FirebaseDatabaseHelper.DataStatus() {
+            @Override
+            public void DataIsInserted() {
+                Toast.makeText(getActivity(),"Save Menu Successful",Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void DataIsUpdated() {
+
+            }
+
+            @Override
+            public void DataIsDeleted() {
+
+            }
+        });
     }
 
 }
