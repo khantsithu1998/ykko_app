@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -51,11 +52,13 @@ public class AdminFoodDetailFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_admin_food_detail, container, false);
         FoodMenu foodMenu = getArguments().getParcelable("menuDetailKey");
         final String key = getArguments().getString("menuDetailKeyKey");
+        ImageView imageView = root.findViewById(R.id.menu_detail_image);
         TextView name = root.findViewById(R.id.food_detail_name);
         TextView type = root.findViewById(R.id.food_detail_type);
         TextView price = root.findViewById(R.id.food_detail_price);
         Button deleteBtn = root.findViewById(R.id.delete_detail_menu_button);
 
+        Picasso.get().load(foodMenu.imageUrl).into(imageView);
         name.setText(foodMenu.foodStickName);
         type.setText(foodMenu.foodStickType);
         price.setText(foodMenu.price);

@@ -13,14 +13,17 @@
         android:orientation="vertical">
 
         <ImageButton
+            android:id="@+id/choose_photo_button"
             style="@style/circleButtonWhite"
             android:src="@drawable/ic_camera_alt_green_24dp"
             android:layout_width="112dp"
             android:layout_height="112dp"
             android:layout_marginTop="110dp"
             android:layout_gravity="center"/>
-        <TextView
-            android:text="Insert Image"
+
+        <Button
+            android:id="@+id/upload_photo_button"
+            android:text="Upload Image"
             android:textSize="20dp"
             android:layout_marginTop="@dimen/dp_10"
             android:fontFamily="@font/raleway_semibold"
@@ -60,6 +63,7 @@
             android:layout_marginHorizontal="20dp"
             android:hint="Enter food price"
             android:outlineProvider="none"/>
+
         <com.google.android.material.textfield.TextInputEditText
             style="@style/customEditTextStyle"
             android:id="@+id/add_food_menu_available"
