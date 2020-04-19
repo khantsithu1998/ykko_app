@@ -33,6 +33,7 @@ public class AdminMenuAdapter extends RecyclerView.Adapter<AdminMenuAdapter.MyVi
         public TextView foodStickNameTextView;
         public TextView foodStickTypeTextView;
         public TextView priceTextView;
+        public TextView branchTextView;
         public ImageButton editBtn;
         public ImageButton deleteBtn;
 
@@ -41,6 +42,7 @@ public class AdminMenuAdapter extends RecyclerView.Adapter<AdminMenuAdapter.MyVi
             foodStickNameTextView = itemView.findViewById(R.id.admin_food_stick_name);
             foodStickTypeTextView = itemView.findViewById(R.id.admin_food_stick_type);
             priceTextView = itemView.findViewById(R.id.admin_food_stick_price);
+            branchTextView = itemView.findViewById(R.id.admin_available_branch);
             editBtn = itemView.findViewById(R.id.admin_menu_edit_btn);
             deleteBtn = itemView.findViewById(R.id.admin_menu_del_btn);
         }
@@ -71,6 +73,7 @@ public class AdminMenuAdapter extends RecyclerView.Adapter<AdminMenuAdapter.MyVi
         TextView foodStickNameTextView = holder.foodStickNameTextView;
         TextView foodStickTypeTextView = holder.foodStickTypeTextView;
         TextView priceTextView = holder.priceTextView;
+        TextView branchTextView = holder.branchTextView;
         ImageButton editBtn = holder.editBtn;
         ImageButton deleteBtn = holder.deleteBtn;
         View itemView = holder.itemView;
@@ -78,6 +81,7 @@ public class AdminMenuAdapter extends RecyclerView.Adapter<AdminMenuAdapter.MyVi
         foodStickNameTextView.setText(posts.get(position).foodStickName);
         foodStickTypeTextView.setText(posts.get(position).foodStickType);
         priceTextView.setText(posts.get(position).price);
+        branchTextView.setText(posts.get(position).available_branch);
         deleteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -27,7 +27,7 @@ public class AddMenuFragment extends Fragment {
         final TextInputEditText foodNameEditText = root.findViewById(R.id.add_food_menu_name);
         final TextInputEditText foodTypeEditText = root.findViewById(R.id.add_food_menu_type);
         final TextInputEditText foodPriceEditText = root.findViewById(R.id.add_food_menu_price);
-        TextInputEditText foodAvailableEditText = root.findViewById(R.id.add_food_menu_available);
+        final TextInputEditText foodAvailableEditText = root.findViewById(R.id.add_food_menu_available);
         Button saveBtn = root.findViewById(R.id.save_menu_button);
 
         saveBtn.setOnClickListener(new View.OnClickListener() {
@@ -36,7 +36,8 @@ public class AddMenuFragment extends Fragment {
                 String name = foodNameEditText.getText().toString();
                 String type = foodTypeEditText.getText().toString();
                 String price = foodPriceEditText.getText().toString();
-                FoodMenu newMenu = new FoodMenu(name,type,price);
+                String branch = foodAvailableEditText.getText().toString();
+                FoodMenu newMenu = new FoodMenu(name,type,price,branch,"");
 
                 FirebaseDatabaseHelper databaseHelper = new FirebaseDatabaseHelper();
                 databaseHelper.addData("menuPosts", newMenu, new FirebaseDatabaseHelper.DataStatus() {
