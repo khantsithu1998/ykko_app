@@ -3,11 +3,13 @@ package com.ykko.app.ui.admin_home;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.media.Image;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -15,6 +17,7 @@ import androidx.annotation.NonNull;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.squareup.picasso.Picasso;
 import com.ykko.app.R;
 import com.ykko.app.data.model.FoodMenu;
 import com.ykko.app.ui.FirebaseDatabaseHelper;
@@ -34,6 +37,7 @@ public class AdminMenuAdapter extends RecyclerView.Adapter<AdminMenuAdapter.MyVi
         public TextView foodStickTypeTextView;
         public TextView priceTextView;
         public TextView branchTextView;
+        public ImageView imageView;
         public ImageButton editBtn;
         public ImageButton deleteBtn;
 
@@ -43,6 +47,7 @@ public class AdminMenuAdapter extends RecyclerView.Adapter<AdminMenuAdapter.MyVi
             foodStickTypeTextView = itemView.findViewById(R.id.admin_food_stick_type);
             priceTextView = itemView.findViewById(R.id.admin_food_stick_price);
             branchTextView = itemView.findViewById(R.id.admin_available_branch);
+            imageView = itemView.findViewById(R.id.menu_image);
             editBtn = itemView.findViewById(R.id.admin_menu_edit_btn);
             deleteBtn = itemView.findViewById(R.id.admin_menu_del_btn);
         }
@@ -74,6 +79,7 @@ public class AdminMenuAdapter extends RecyclerView.Adapter<AdminMenuAdapter.MyVi
         TextView foodStickTypeTextView = holder.foodStickTypeTextView;
         TextView priceTextView = holder.priceTextView;
         TextView branchTextView = holder.branchTextView;
+        ImageView imageView = holder.imageView;
         ImageButton editBtn = holder.editBtn;
         ImageButton deleteBtn = holder.deleteBtn;
         View itemView = holder.itemView;
@@ -82,6 +88,7 @@ public class AdminMenuAdapter extends RecyclerView.Adapter<AdminMenuAdapter.MyVi
         foodStickTypeTextView.setText(posts.get(position).foodStickType);
         priceTextView.setText(posts.get(position).price);
         branchTextView.setText(posts.get(position).available_branch);
+        Picasso.get().load(posts.get(position).imageUrl).into(imageView);
         deleteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
