@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -13,6 +14,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -57,6 +59,31 @@ public class AdminHomeFragment extends Fragment {
         mViewModel =
                 ViewModelProviders.of(this).get(AdminHomeViewModel.class);
         View root = inflater.inflate(R.layout.fragment_admin_home, container, false);
+
+        TextView reservationsViewAllTextView = root.findViewById(R.id.admin_reservations_view_all);
+        TextView foodMenuViewAllTextView = root.findViewById(R.id.admin_food_menu_view_all);
+        TextView reviewsViewAllTextView = root.findViewById(R.id.admin_reviews_view_all);
+
+        reservationsViewAllTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(getActivity(),R.id.nav_admin_host_fragment).navigate(R.id.nav_admin_reservation);
+            }
+        });
+
+        foodMenuViewAllTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(getActivity(),R.id.nav_admin_host_fragment).navigate(R.id.nav_admin_food_menu);
+            }
+        });
+
+        reviewsViewAllTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(getActivity(),R.id.nav_admin_host_fragment).navigate(R.id.nav_admin_review);
+            }
+        });
 
         orderPostsView = root.findViewById(R.id.order_posts_view);
         orderPostsView.setHasFixedSize(true);
