@@ -1,11 +1,13 @@
 package com.ykko.app.ui.admin_home;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -24,6 +26,8 @@ import java.util.List;
 
 public class AdminReservationAdapter extends RecyclerView.Adapter<AdminReservationAdapter.MyViewHolder> {
     private List<Order> posts;
+    private List<String> keys;
+    private Context mContext;
 
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
@@ -62,8 +66,10 @@ public class AdminReservationAdapter extends RecyclerView.Adapter<AdminReservati
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public AdminReservationAdapter(List<Order> orderPosts) {
+    public AdminReservationAdapter(List<Order> orderPosts,List<String> dataKeys,Context context) {
         posts = orderPosts;
+        keys = dataKeys;
+        mContext = context;
     }
 
     // Create new views (invoked by the layout manager)
@@ -91,6 +97,7 @@ public class AdminReservationAdapter extends RecyclerView.Adapter<AdminReservati
         TextView confirmFoodOneTextView = holder.confirmFoodOneTextView;
         TextView confirmFoodTwoTextView = holder.confirmFoodTwoTextView;
         TextView confirmDesTextView = holder.confirmDesTextView;
+        View itemView = holder.itemView;
 
         confirmNameTextView.setText(posts.get(position).name);
         confirmPhNoTextView.setText(posts.get(position).phNo);
@@ -101,6 +108,15 @@ public class AdminReservationAdapter extends RecyclerView.Adapter<AdminReservati
         confirmFoodOneTextView.setText(posts.get(position).food1);
         confirmFoodTwoTextView.setText(posts.get(position).food2);
         confirmDesTextView.setText(posts.get(position).description);
+        itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle bundle = new Bundle();
+                bundle.putString("orderDetailKeyKey",keys.get(position));
+                bundle.putParcelable("orderDetailKey", posts.get(position));
+                Navigation.findNavController(v).navigate(R.id.nav_admin_reservation_detail,bundle);
+            }
+        });
 
     }
 

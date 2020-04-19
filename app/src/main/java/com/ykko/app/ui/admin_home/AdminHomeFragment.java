@@ -117,7 +117,7 @@ public class AdminHomeFragment extends Fragment {
                     orderPosts.add(post);
                 }
 
-                orderPostsViewAdapter = new AdminReservationAdapter(orderPosts);
+                orderPostsViewAdapter = new AdminReservationAdapter(orderPosts,keys,getContext());
                 orderPostsView.setAdapter(orderPostsViewAdapter);
             }
 

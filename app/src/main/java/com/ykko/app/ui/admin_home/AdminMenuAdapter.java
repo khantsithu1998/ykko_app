@@ -124,6 +124,7 @@ public class AdminMenuAdapter extends RecyclerView.Adapter<AdminMenuAdapter.MyVi
             @Override
             public void onClick(View v) {
                 Bundle bundle = new Bundle();
+                bundle.putString("menuDetailKeyKey",keys.get(position));
                 bundle.putParcelable("menuDetailKey", posts.get(position));
                 Navigation.findNavController(v).navigate(R.id.nav_admin_food_detail,bundle);
             }

@@ -42,6 +42,12 @@
         tools:layout="@layout/fragment_add_menu" />
 
     <fragment
+        android:id="@+id/nav_admin_reservation_detail"
+        android:name="com.ykko.app.ui.admin_reservations_details.AdminReservationDetailsFragment"
+        android:label="Reservation Details"
+        tools:layout="@layout/fragment_admin_reservation_details" />
+
+    <fragment
         android:id="@+id/nav_admin_food_detail"
         android:name="com.ykko.app.ui.admin_food_detail.AdminFoodDetailFragment"
         android:label="Food Details"
