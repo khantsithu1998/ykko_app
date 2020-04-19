@@ -1,6 +1,9 @@
 package com.ykko.app.data.model;
 
-public class FoodMenu {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class FoodMenu implements Parcelable {
     public String foodStickName;
     public String foodStickType;
     public String price;
@@ -13,5 +16,15 @@ public class FoodMenu {
         this.foodStickName = foodStickName;
         this.foodStickType = foodStickType;
         this.price = price;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+
     }
 }

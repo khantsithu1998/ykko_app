@@ -3,6 +3,7 @@ package com.ykko.app.ui.admin_home;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ykko.app.R;
@@ -31,6 +33,7 @@ public class AdminMenuAdapter extends RecyclerView.Adapter<AdminMenuAdapter.MyVi
         public TextView foodStickNameTextView;
         public TextView foodStickTypeTextView;
         public TextView priceTextView;
+        public ImageButton editBtn;
         public ImageButton deleteBtn;
 
         public MyViewHolder(View itemView) {
@@ -38,13 +41,8 @@ public class AdminMenuAdapter extends RecyclerView.Adapter<AdminMenuAdapter.MyVi
             foodStickNameTextView = itemView.findViewById(R.id.admin_food_stick_name);
             foodStickTypeTextView = itemView.findViewById(R.id.admin_food_stick_type);
             priceTextView = itemView.findViewById(R.id.admin_food_stick_price);
+            editBtn = itemView.findViewById(R.id.admin_menu_edit_btn);
             deleteBtn = itemView.findViewById(R.id.admin_menu_del_btn);
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-//                    Navigation.findNavController(v).navigate(R.id.nav_admin_food_menu);
-                }
-            });
         }
     }
 
@@ -73,7 +71,9 @@ public class AdminMenuAdapter extends RecyclerView.Adapter<AdminMenuAdapter.MyVi
         TextView foodStickNameTextView = holder.foodStickNameTextView;
         TextView foodStickTypeTextView = holder.foodStickTypeTextView;
         TextView priceTextView = holder.priceTextView;
+        ImageButton editBtn = holder.editBtn;
         ImageButton deleteBtn = holder.deleteBtn;
+        View itemView = holder.itemView;
 
         foodStickNameTextView.setText(posts.get(position).foodStickName);
         foodStickTypeTextView.setText(posts.get(position).foodStickType);
@@ -117,6 +117,15 @@ public class AdminMenuAdapter extends RecyclerView.Adapter<AdminMenuAdapter.MyVi
                 });
 
                 builder.show();
+            }
+        });
+
+        itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle bundle = new Bundle();
+                bundle.putParcelable("menuDetailKey", posts.get(position));
+                Navigation.findNavController(v).navigate(R.id.nav_admin_food_detail,bundle);
             }
         });
     }

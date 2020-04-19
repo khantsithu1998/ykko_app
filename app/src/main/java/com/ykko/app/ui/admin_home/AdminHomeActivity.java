@@ -31,7 +31,8 @@ public class AdminHomeActivity extends AppCompatActivity {
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.nav_admin_home,R.id.nav_admin_reservation,
-                R.id.nav_admin_food_menu,R.id.nav_admin_review,R.id.nav_admin_add_menu)
+                R.id.nav_admin_food_menu,R.id.nav_admin_review,
+                R.id.nav_admin_add_menu,R.id.nav_admin_edit_menu,R.id.nav_admin_food_detail)
                 .setDrawerLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_admin_host_fragment);

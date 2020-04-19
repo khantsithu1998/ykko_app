@@ -31,9 +31,14 @@ public class AdminHomeFragment extends Fragment {
 
     private AdminHomeViewModel mViewModel;
     private List<Order> orderPosts = new ArrayList<>();
-    private List<FoodMenu> foodMenuPosts = new ArrayList<>();
-    private List<Feedback> reviewPosts = new ArrayList<>();
     private List<String> keys = new ArrayList<>();
+
+    private List<FoodMenu> foodMenuPosts = new ArrayList<>();
+    private List<String> foodMenuKeys = new ArrayList<>();
+
+    private List<Feedback> reviewPosts = new ArrayList<>();
+    private List<String> reviewKeys = new ArrayList<>();
+
 
     private RecyclerView orderPostsView;
     private RecyclerView.Adapter orderPostsViewAdapter;
@@ -99,15 +104,15 @@ public class AdminHomeFragment extends Fragment {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // Get Post object and use the values to update the UI
-                keys.clear();
+                reviewKeys.clear();
                 reviewPosts.clear();
                 for(DataSnapshot keyNode : dataSnapshot.getChildren()){
-                    keys.add(keyNode.getKey());
+                    reviewKeys.add(keyNode.getKey());
                     Feedback post = keyNode.getValue(Feedback.class);
                     reviewPosts.add(post);
                 }
 
-                reviewPostsViewAdapter = new AdminReviewAdapter(reviewPosts,keys,getContext());
+                reviewPostsViewAdapter = new AdminReviewAdapter(reviewPosts,reviewKeys,getContext());
                 reviewPostsView.setAdapter(reviewPostsViewAdapter);
             }
 
@@ -121,14 +126,16 @@ public class AdminHomeFragment extends Fragment {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // Get Post object and use the values to update the UI
-                keys.clear();
+                foodMenuKeys.clear();
+                foodMenuPosts.clear();
+
                 for(DataSnapshot keyNode : dataSnapshot.getChildren()){
-                    keys.add(keyNode.getKey());
+                    foodMenuKeys.add(keyNode.getKey());
                     FoodMenu post = keyNode.getValue(FoodMenu.class);
                     foodMenuPosts.add(post);
                 }
 
-                foodMenuPostsViewAdapter = new AdminMenuAdapter(foodMenuPosts,keys,getContext());
+                foodMenuPostsViewAdapter = new AdminMenuAdapter(foodMenuPosts,foodMenuKeys,getContext());
                 foodMenuPostsView.setAdapter(foodMenuPostsViewAdapter);
             }
 

@@ -30,6 +30,30 @@ public class Order implements Parcelable {
         this.township = township;
     }
 
+    protected Order(Parcel in) {
+        branch = in.readString();
+        date = in.readString();
+        description = in.readString();
+        food1 = in.readString();
+        food2 = in.readString();
+        name = in.readString();
+        numberOfPersons = in.readInt();
+        phNo = in.readString();
+        township = in.readString();
+    }
+
+    public static final Creator<Order> CREATOR = new Creator<Order>() {
+        @Override
+        public Order createFromParcel(Parcel in) {
+            return new Order(in);
+        }
+
+        @Override
+        public Order[] newArray(int size) {
+            return new Order[size];
+        }
+    };
+
     @Override
     public int describeContents() {
         return 0;
@@ -37,6 +61,14 @@ public class Order implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-
+        dest.writeString(branch);
+        dest.writeString(date);
+        dest.writeString(description);
+        dest.writeString(food1);
+        dest.writeString(food2);
+        dest.writeString(name);
+        dest.writeInt(numberOfPersons);
+        dest.writeString(phNo);
+        dest.writeString(township);
     }
 }

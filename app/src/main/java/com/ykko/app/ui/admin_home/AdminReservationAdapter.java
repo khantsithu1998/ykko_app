@@ -39,7 +39,6 @@ public class AdminReservationAdapter extends RecyclerView.Adapter<AdminReservati
         public TextView confirmFoodOneTextView;
         public TextView confirmFoodTwoTextView;
         public TextView confirmDesTextView;
-        public Button confirmBtn;
 
         public MyViewHolder(View itemView) {
             super(itemView);
@@ -52,7 +51,6 @@ public class AdminReservationAdapter extends RecyclerView.Adapter<AdminReservati
             confirmFoodOneTextView = itemView.findViewById(R.id.admin_confirm_food1);
             confirmFoodTwoTextView = itemView.findViewById(R.id.admin_confirm_food2);
             confirmDesTextView = itemView.findViewById(R.id.admin_confirm_des);
-            confirmBtn = itemView.findViewById(R.id.admin_confirm_table_btn);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -93,7 +91,6 @@ public class AdminReservationAdapter extends RecyclerView.Adapter<AdminReservati
         TextView confirmFoodOneTextView = holder.confirmFoodOneTextView;
         TextView confirmFoodTwoTextView = holder.confirmFoodTwoTextView;
         TextView confirmDesTextView = holder.confirmDesTextView;
-        Button confirmBtn = holder.confirmBtn;
 
         confirmNameTextView.setText(posts.get(position).name);
         confirmPhNoTextView.setText(posts.get(position).phNo);

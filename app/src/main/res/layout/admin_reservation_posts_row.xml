@@ -242,27 +242,6 @@
                     android:textSize="13dp" />
 
             </LinearLayout>
-            <LinearLayout
-                android:paddingVertical="20dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <Button
-                    style="@style/ykkoButtonWhite"
-                    android:layout_width="120dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="5"
-                    android:layout_marginHorizontal="20dp"
-                    android:text="CANCEL" />
-
-                <Button
-                    android:id="@+id/admin_confirm_table_btn"
-                    style="@style/ykkoButton"
-                    android:layout_width="120dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="5"
-                    android:layout_marginHorizontal="20dp"
-                    android:text="CONFIRM" />
-            </LinearLayout>
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>
