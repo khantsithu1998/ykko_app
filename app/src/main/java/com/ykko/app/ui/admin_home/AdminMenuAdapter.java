@@ -1,24 +1,28 @@
 package com.ykko.app.ui.admin_home;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RatingBar;
+import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ykko.app.R;
-import com.ykko.app.data.model.Feedback;
-import com.ykko.app.data.model.Menu;
+import com.ykko.app.data.model.FoodMenu;
+import com.ykko.app.ui.FirebaseDatabaseHelper;
 
 import java.util.List;
 
 public class AdminMenuAdapter extends RecyclerView.Adapter<AdminMenuAdapter.MyViewHolder> {
-    private List<Menu> posts;
+    private List<FoodMenu> posts;
+    private List<String> keys;
+    private Context mContext;
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
     // you provide access to all the views for a data item in a view holder
@@ -27,24 +31,28 @@ public class AdminMenuAdapter extends RecyclerView.Adapter<AdminMenuAdapter.MyVi
         public TextView foodStickNameTextView;
         public TextView foodStickTypeTextView;
         public TextView priceTextView;
+        public ImageButton deleteBtn;
 
         public MyViewHolder(View itemView) {
             super(itemView);
             foodStickNameTextView = itemView.findViewById(R.id.admin_food_stick_name);
             foodStickTypeTextView = itemView.findViewById(R.id.admin_food_stick_type);
             priceTextView = itemView.findViewById(R.id.admin_food_stick_price);
+            deleteBtn = itemView.findViewById(R.id.admin_menu_del_btn);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Navigation.findNavController(v).navigate(R.id.nav_admin_food_menu);
+//                    Navigation.findNavController(v).navigate(R.id.nav_admin_food_menu);
                 }
             });
         }
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public AdminMenuAdapter(List<Menu> menuPosts) {
-        posts = menuPosts;
+    public AdminMenuAdapter(List<FoodMenu> foodMenuPosts, List<String> dataKeys, Context context) {
+        posts = foodMenuPosts;
+        keys = dataKeys;
+        mContext = context;
     }
 
     // Create new views (invoked by the layout manager)
@@ -57,9 +65,6 @@ public class AdminMenuAdapter extends RecyclerView.Adapter<AdminMenuAdapter.MyVi
         View menuPostView = inflater.inflate(R.layout.admin_foodmenu_posts_row,parent,false);
 
         AdminMenuAdapter.MyViewHolder viewHolder  = new AdminMenuAdapter.MyViewHolder(menuPostView);
-
-
-
         return viewHolder;
     }
 
@@ -68,16 +73,57 @@ public class AdminMenuAdapter extends RecyclerView.Adapter<AdminMenuAdapter.MyVi
         TextView foodStickNameTextView = holder.foodStickNameTextView;
         TextView foodStickTypeTextView = holder.foodStickTypeTextView;
         TextView priceTextView = holder.priceTextView;
+        ImageButton deleteBtn = holder.deleteBtn;
 
         foodStickNameTextView.setText(posts.get(position).foodStickName);
         foodStickTypeTextView.setText(posts.get(position).foodStickType);
         priceTextView.setText(posts.get(position).price);
+        deleteBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+                builder.setTitle("Alert");
+                builder.setMessage("You are about to delete this record of database. Do you really want to proceed ?");
+                builder.setCancelable(false);
+                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        FirebaseDatabaseHelper databaseHelper = new FirebaseDatabaseHelper();
+                        databaseHelper.deleteData("menuPosts", String.valueOf(keys.get(position)), new FirebaseDatabaseHelper.DataStatus() {
+                            @Override
+                            public void DataIsInserted() {
+
+                            }
+
+                            @Override
+                            public void DataIsUpdated() {
+
+                            }
+
+                            @Override
+                            public void DataIsDeleted() {
+                                Toast.makeText(mContext, "You've chosen to delete this record", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+
+                    }
+                });
+
+                builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Toast.makeText(mContext, "You've changed your mind to delete this record", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+                builder.show();
+            }
+        });
     }
 
     @Override
     public int getItemCount() {
         return posts.size();
     }
-
 
 }

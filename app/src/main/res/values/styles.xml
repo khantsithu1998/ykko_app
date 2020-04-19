@@ -40,6 +40,16 @@
         <item name="android:fontFamily">@font/raleway_medium</item>
     </style>
 
+    <style name="circleButtonWhite" parent="ThemeOverlay.AppCompat.Light">
+        <item name="colorButtonNormal">@color/colorBg</item>
+        <item name="android:gravity">center_vertical|center_horizontal</item>
+        <item name="android:shadowColor">#FF000000</item>
+        <item name="android:shadowDx">0</item>
+        <item name="android:shadowDy">-1</item>
+        <item name="android:shadowRadius">0.5</item>
+        <item name="android:background">@drawable/btn_circle</item>
+    </style>
+
     <style name="customEditLoginStyle" parent="ThemeOverlay.AppCompat.Light">
         <item name="android:background">@drawable/login_edit_rounded</item>
         <item name="android:textSize">15dp</item>

@@ -21,6 +21,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.ykko.app.R;
 import com.ykko.app.data.model.Order;
+import com.ykko.app.ui.FirebaseDatabaseHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,9 +29,7 @@ import java.util.List;
 public class ConfirmOrderFragment extends Fragment {
 
     private ConfirmOrderViewModel mViewModel;
-    FirebaseDatabase database;
     Order newOrder = new Order();
-    long orderPostId = 1;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -38,30 +37,29 @@ public class ConfirmOrderFragment extends Fragment {
                 ViewModelProviders.of(this).get(ConfirmOrderViewModel.class);
         View root = inflater.inflate(R.layout.fragment_confirm_order, container, false);
         Button confirmTableBtn = root.findViewById(R.id.confirm_table_btn);
-        database = FirebaseDatabase.getInstance();
-        DatabaseReference orderPostsRef = database.getReference("orderPosts").child("posts");
-        ValueEventListener orderPostListener = new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                // Get Post object and use the values to update the UI
-                if(dataSnapshot.exists()){
-                    orderPostId = dataSnapshot.getChildrenCount() +  1;
-                }
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Log.w("", "loadPost:onCancelled", databaseError.toException());
-            }
-        };
-        orderPostsRef.addValueEventListener(orderPostListener);
 
         confirmTableBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                saveTable();
-                Navigation.findNavController(v).navigate(R.id.nav_reserved);
+                FirebaseDatabaseHelper databaseHelper = new FirebaseDatabaseHelper();
+                databaseHelper.addData("orderPosts", newOrder, new FirebaseDatabaseHelper.DataStatus() {
+                    @Override
+                    public void DataIsInserted() {
+                        Toast.makeText(getActivity(),"Confirm Order Successful",Toast.LENGTH_SHORT).show();
+                        Navigation.findNavController(getView()).navigate(R.id.nav_reserved);
+                    }
+
+                    @Override
+                    public void DataIsUpdated() {
+
+                    }
+
+                    @Override
+                    public void DataIsDeleted() {
+
+                    }
+                });
+
             }
         });
 
@@ -88,11 +86,5 @@ public class ConfirmOrderFragment extends Fragment {
         return root;
     }
 
-    public void saveTable(){
-        DatabaseReference orderPostsRef = database.getReference("orderPosts");
-        String postID = String.valueOf(orderPostId);
-        orderPostsRef.child("posts").child(postID).setValue(newOrder);
-        Toast.makeText(getActivity(),"Confirm Order Successful",Toast.LENGTH_SHORT).show();
-    }
 
 }

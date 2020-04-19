@@ -7,6 +7,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -14,6 +15,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -21,7 +23,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.ykko.app.R;
-import com.ykko.app.data.model.Menu;
+import com.ykko.app.data.model.FoodMenu;
 import com.ykko.app.ui.admin_home.AdminMenuAdapter;
 
 import java.util.ArrayList;
@@ -31,7 +33,7 @@ public class AdminFoodMenuFragment extends Fragment {
 
     private AdminFoodMenuViewModel mViewModel;
 
-    private List<Menu> menuPosts = new ArrayList<>();
+    private List<FoodMenu> foodMenuPosts = new ArrayList<>();
     private List<String> keys = new ArrayList<>();
 
     private RecyclerView foodMenuPostsView;
@@ -43,6 +45,14 @@ public class AdminFoodMenuFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         mViewModel = ViewModelProviders.of(this).get(AdminFoodMenuViewModel.class);
         View root = inflater.inflate(R.layout.fragment_admin_food_menu, container, false);
+
+        TextView addMenuBtn = root.findViewById(R.id.add_menu_btn);
+        addMenuBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(v).navigate(R.id.nav_admin_add_menu);
+            }
+        });
 
         foodMenuPostsView = root.findViewById(R.id.admin_food_list_posts_view);
         foodMenuPostsView.setHasFixedSize(true);
@@ -56,13 +66,15 @@ public class AdminFoodMenuFragment extends Fragment {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // Get Post object and use the values to update the UI
                 keys.clear();
+                foodMenuPosts.clear();
+
                 for(DataSnapshot keyNode : dataSnapshot.getChildren()){
                     keys.add(keyNode.getKey());
-                    Menu post = keyNode.getValue(Menu.class);
-                    menuPosts.add(post);
+                    FoodMenu post = keyNode.getValue(FoodMenu.class);
+                    foodMenuPosts.add(post);
                 }
 
-                foodMenuPostsViewAdapter = new AdminMenuAdapter(menuPosts);
+                foodMenuPostsViewAdapter = new AdminMenuAdapter(foodMenuPosts,keys,getContext());
                 foodMenuPostsView.setAdapter(foodMenuPostsViewAdapter);
             }
 
@@ -74,6 +86,7 @@ public class AdminFoodMenuFragment extends Fragment {
         foodMenuPostsRef.addValueEventListener(menuPostListener);
         return root;
     }
+
 
 
 }

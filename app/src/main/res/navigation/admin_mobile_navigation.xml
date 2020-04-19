@@ -29,5 +29,11 @@
         android:label="Reviews"
         tools:layout="@layout/fragment_admin_review" />
 
+    <fragment
+        android:id="@+id/nav_admin_add_menu"
+        android:name="com.ykko.app.ui.admin_add_menu.AddMenuFragment"
+        android:label="Add Food"
+        tools:layout="@layout/fragment_add_menu" />
+
 
 </navigation>

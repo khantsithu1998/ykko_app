@@ -1,29 +1,21 @@
 package com.ykko.app.ui.table;
 
 import androidx.fragment.app.DialogFragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
-import android.os.Parcelable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Spinner;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.dev.materialspinner.MaterialSpinner;
 import com.google.android.material.textfield.TextInputEditText;
@@ -33,9 +25,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.ykko.app.R;
-import com.ykko.app.data.model.Menu;
+import com.ykko.app.data.model.FoodMenu;
 import com.ykko.app.data.model.Order;
-import com.ykko.app.ui.food_menu.FoodMenuAdapter;
 import com.ykko.app.ui.fragments.DatePickerFragment;
 import com.ykko.app.ui.fragments.TimePickerFragment;
 
@@ -46,7 +37,7 @@ public class TableReseravationFragment extends Fragment {
 
     private TableReseravationViewModel tableReseravationViewModel;
     FirebaseDatabase database;
-    private List<Menu> menuPosts = new ArrayList<>();
+    private List<FoodMenu> foodMenuPosts = new ArrayList<>();
     private ArrayList foods = new ArrayList<>();
     private List<String> keys = new ArrayList<>();
 
@@ -69,7 +60,7 @@ public class TableReseravationFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_table_reservation, container, false);
         final TextInputEditText nameEditText = root.findViewById(R.id.reserve_name);
         final TextInputEditText phNoEditText = root.findViewById(R.id.reserve_phNo);
-        final TextInputEditText numerOfPersonsEditText = root.findViewById(R.id.noOfPersons);
+        final TextInputEditText numberOfPersonsEditText = root.findViewById(R.id.noOfPersons);
         final TextInputEditText foodDesEditText = root.findViewById(R.id.food_des);
         foodOneSpinner = root.findViewById(R.id.food1_spinner);
         foodOneSpinner.setItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -109,10 +100,10 @@ public class TableReseravationFragment extends Fragment {
                 keys.clear();
                 for(DataSnapshot keyNode : dataSnapshot.getChildren()){
                     keys.add(keyNode.getKey());
-                    Menu post = keyNode.getValue(Menu.class);
-                    menuPosts.add(post);
+                    FoodMenu post = keyNode.getValue(FoodMenu.class);
+                    foodMenuPosts.add(post);
                 }
-                for(Menu post: menuPosts){
+                for(FoodMenu post: foodMenuPosts){
                     foods.add(post.foodStickName);
                 }
 
@@ -201,7 +192,7 @@ public class TableReseravationFragment extends Fragment {
                 newOrder.date = "20/Mar/2020 - 12:00 PM";
                 newOrder.branch = branch;
                 newOrder.township = township;
-                newOrder.numberOfPersons = Integer.valueOf(numerOfPersonsEditText.getText().toString());
+                newOrder.numberOfPersons = Integer.valueOf(numberOfPersonsEditText.getText().toString());
                 newOrder.food1 = foodOne;
                 newOrder.food2 = foodTwo;
                 newOrder.description = foodDesEditText.getText().toString();
@@ -216,10 +207,15 @@ public class TableReseravationFragment extends Fragment {
     public void showDatePickerDialog(View v) {
         DialogFragment newFragment = new DatePickerFragment();
         newFragment.show(getFragmentManager(),"datePicker");
+//        DatePickerDialog dialog = (DatePickerDialog) newFragment.getDialog();
+//        DatePicker picker = dialog.getDatePicker();
+//        date = picker.getDayOfMonth()+"/"+ (picker.getMonth() + 1)+"/"+picker.getYear();
     }
+
     public void showTimePickerDialog(View v) {
         DialogFragment newFragment = new TimePickerFragment();
         newFragment.show(getFragmentManager(),"timePicker");
+
     }
 
 

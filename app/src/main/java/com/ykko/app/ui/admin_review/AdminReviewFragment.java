@@ -55,13 +55,14 @@ public class AdminReviewFragment extends Fragment {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // Get Post object and use the values to update the UI
                 keys.clear();
+                reviewPosts.clear();
                 for(DataSnapshot keyNode : dataSnapshot.getChildren()){
                     keys.add(keyNode.getKey());
                     Feedback post = keyNode.getValue(Feedback.class);
                     reviewPosts.add(post);
                 }
 
-                reviewPostsViewAdapter = new AdminReviewAdapter(reviewPosts);
+                reviewPostsViewAdapter = new AdminReviewAdapter(reviewPosts,keys,getContext());
                 reviewPostsView.setAdapter(reviewPostsViewAdapter);
             }
 

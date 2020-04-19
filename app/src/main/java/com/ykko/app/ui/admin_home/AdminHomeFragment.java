@@ -5,7 +5,6 @@ import androidx.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -22,10 +21,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.ykko.app.R;
 import com.ykko.app.data.model.Feedback;
-import com.ykko.app.data.model.Menu;
+import com.ykko.app.data.model.FoodMenu;
 import com.ykko.app.data.model.Order;
-import com.ykko.app.data.model.PopularPost;
-import com.ykko.app.ui.home.HomePopularPostsAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +31,7 @@ public class AdminHomeFragment extends Fragment {
 
     private AdminHomeViewModel mViewModel;
     private List<Order> orderPosts = new ArrayList<>();
-    private List<Menu> menuPosts = new ArrayList<>();
+    private List<FoodMenu> foodMenuPosts = new ArrayList<>();
     private List<Feedback> reviewPosts = new ArrayList<>();
     private List<String> keys = new ArrayList<>();
 
@@ -81,6 +78,7 @@ public class AdminHomeFragment extends Fragment {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // Get Post object and use the values to update the UI
                 keys.clear();
+                orderPosts.clear();
                 for(DataSnapshot keyNode : dataSnapshot.getChildren()){
                     keys.add(keyNode.getKey());
                     Order post = keyNode.getValue(Order.class);
@@ -102,13 +100,14 @@ public class AdminHomeFragment extends Fragment {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // Get Post object and use the values to update the UI
                 keys.clear();
+                reviewPosts.clear();
                 for(DataSnapshot keyNode : dataSnapshot.getChildren()){
                     keys.add(keyNode.getKey());
                     Feedback post = keyNode.getValue(Feedback.class);
                     reviewPosts.add(post);
                 }
 
-                reviewPostsViewAdapter = new AdminReviewAdapter(reviewPosts);
+                reviewPostsViewAdapter = new AdminReviewAdapter(reviewPosts,keys,getContext());
                 reviewPostsView.setAdapter(reviewPostsViewAdapter);
             }
 
@@ -125,11 +124,11 @@ public class AdminHomeFragment extends Fragment {
                 keys.clear();
                 for(DataSnapshot keyNode : dataSnapshot.getChildren()){
                     keys.add(keyNode.getKey());
-                    Menu post = keyNode.getValue(Menu.class);
-                    menuPosts.add(post);
+                    FoodMenu post = keyNode.getValue(FoodMenu.class);
+                    foodMenuPosts.add(post);
                 }
 
-                foodMenuPostsViewAdapter = new AdminMenuAdapter(menuPosts);
+                foodMenuPostsViewAdapter = new AdminMenuAdapter(foodMenuPosts,keys,getContext());
                 foodMenuPostsView.setAdapter(foodMenuPostsViewAdapter);
             }
 

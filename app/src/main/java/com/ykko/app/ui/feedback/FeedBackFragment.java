@@ -26,6 +26,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.ykko.app.R;
 import com.ykko.app.data.model.Feedback;
+import com.ykko.app.ui.FirebaseDatabaseHelper;
 
 public class FeedBackFragment extends Fragment {
 
@@ -68,17 +69,28 @@ public class FeedBackFragment extends Fragment {
                 feedback.reviewerName = reviewerNameEditText.getText().toString();
                 feedback.comment = reviewerCmtEditText.getText().toString();
                 feedback.quality = ratingBar.getRating();
-                sendReview();
+                FirebaseDatabaseHelper databaseHelper = new FirebaseDatabaseHelper();
+                databaseHelper.addData("feedbackPosts", feedback, new FirebaseDatabaseHelper.DataStatus() {
+                    @Override
+                    public void DataIsInserted() {
+                        Toast.makeText(getContext(),"SEND SUCCESSFUL",Toast.LENGTH_LONG).show();
+                    }
+
+                    @Override
+                    public void DataIsUpdated() {
+
+                    }
+
+                    @Override
+                    public void DataIsDeleted() {
+
+                    }
+                });
             }
         });
         return root;
     }
 
-    public void sendReview(){
-        DatabaseReference feedbackPostsRef = database.getReference("feedbackPosts");
-        String postID = String.valueOf(feedbackPostID);
-        feedbackPostsRef.child("posts").child(postID).setValue(feedback);
-        Toast.makeText(getActivity(),"SEND SUCCESSFUL",Toast.LENGTH_SHORT).show();
-    }
+
 
 }

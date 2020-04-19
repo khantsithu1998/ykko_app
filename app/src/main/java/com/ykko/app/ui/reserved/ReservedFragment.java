@@ -29,7 +29,6 @@ public class ReservedFragment extends Fragment {
         goBackBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 Navigation.findNavController(v).navigate(R.id.nav_home);
             }
         });

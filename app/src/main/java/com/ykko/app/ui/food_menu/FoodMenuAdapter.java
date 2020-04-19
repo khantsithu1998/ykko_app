@@ -11,12 +11,12 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ykko.app.R;
-import com.ykko.app.data.model.Menu;
+import com.ykko.app.data.model.FoodMenu;
 
 import java.util.List;
 
 public class FoodMenuAdapter extends RecyclerView.Adapter<FoodMenuAdapter.MyViewHolder> {
-    private List<Menu> posts;
+    private List<FoodMenu> posts;
 
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
@@ -39,8 +39,8 @@ public class FoodMenuAdapter extends RecyclerView.Adapter<FoodMenuAdapter.MyView
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public FoodMenuAdapter(List<Menu> menuPosts) {
-        posts = menuPosts;
+    public FoodMenuAdapter(List<FoodMenu> foodMenuPosts) {
+        posts = foodMenuPosts;
     }
 
     // Create new views (invoked by the layout manager)
