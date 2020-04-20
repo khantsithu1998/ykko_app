@@ -34,6 +34,7 @@ import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
 import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
 import com.ykko.app.MainActivity;
 import com.ykko.app.R;
 import com.ykko.app.data.model.FoodMenu;
@@ -42,6 +43,8 @@ import com.ykko.app.ui.FirebaseDatabaseHelper;
 
 import java.io.File;
 import java.io.IOException;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -57,6 +60,7 @@ public class AddMenuFragment extends Fragment {
     private TextInputEditText foodTypeEditText;
     private TextInputEditText foodPriceEditText;
     private TextInputEditText foodAvailableEditText;
+    private CircleImageView circleImageView;
     private FoodMenu newMenu = new FoodMenu();
 
     @Override
@@ -71,6 +75,7 @@ public class AddMenuFragment extends Fragment {
         foodTypeEditText = root.findViewById(R.id.add_food_menu_type);
         foodPriceEditText = root.findViewById(R.id.add_food_menu_price);
         foodAvailableEditText = root.findViewById(R.id.add_food_menu_available);
+        circleImageView = root.findViewById(R.id.circle_image_view);
         final Button chooseBtn = root.findViewById(R.id.choose_photo_button);
 
         Button saveBtn = root.findViewById(R.id.save_menu_button);
@@ -114,7 +119,7 @@ public class AddMenuFragment extends Fragment {
                 && data != null && data.getData() != null) {
             mImageUri = data.getData();
 
-            //Picasso.with(this).load(mImageUri).into(mImageView);
+            Picasso.get().load(mImageUri).into(circleImageView);
         }
     }
 

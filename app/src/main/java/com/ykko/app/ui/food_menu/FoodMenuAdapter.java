@@ -5,11 +5,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.squareup.picasso.Picasso;
 import com.ykko.app.R;
 import com.ykko.app.data.model.FoodMenu;
 
@@ -26,6 +28,7 @@ public class FoodMenuAdapter extends RecyclerView.Adapter<FoodMenuAdapter.MyView
         public TextView foodStickNameTextView;
         public TextView foodStickTypeTextView;
         public TextView foodStickPriceTextView;
+        public ImageView imageView;
         public Button reserveBtn;
 
         public MyViewHolder(View itemView) {
@@ -33,7 +36,7 @@ public class FoodMenuAdapter extends RecyclerView.Adapter<FoodMenuAdapter.MyView
             foodStickNameTextView = itemView.findViewById(R.id.food_stick_name);
             foodStickTypeTextView = itemView.findViewById(R.id.food_stick_type);
             foodStickPriceTextView = itemView.findViewById(R.id.food_stick_price);
-
+            imageView = itemView.findViewById(R.id.visitor_image_view);
             reserveBtn = itemView.findViewById(R.id.reserve_btn);
         }
     }
@@ -70,11 +73,12 @@ public class FoodMenuAdapter extends RecyclerView.Adapter<FoodMenuAdapter.MyView
         TextView foodStickTypeTextView = holder.foodStickTypeTextView;
         TextView foodStickNameTextView = holder.foodStickNameTextView;
         TextView foodStickPriceTextView = holder.foodStickPriceTextView;
+        ImageView imageView = holder.imageView;
 
         foodStickNameTextView.setText(posts.get(position).foodStickName);
         foodStickTypeTextView.setText(posts.get(position).foodStickType);
         foodStickPriceTextView.setText(posts.get(position).price);
-
+        Picasso.get().load(posts.get(position).imageUrl).into(imageView);
     }
 
     // Return the size of your dataset (invoked by the layout manager)
